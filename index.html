@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog Produk</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand">Nur Rizqi FP - B - 056</a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Data Produk</a>
+        <a href="form.html" class="nav-link">Caption Generator</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <section class="page-header">
+      <div>
+        <h1>Katalog Produk</h1>
+        <p class="subtitle">Data diambil menggunakan Fetch API dari DummyJSON.</p>
+      </div>
+      <div class="toolbar">
+        <input 
+          type="search" 
+          id="search-input" 
+          class="input-control" 
+          placeholder="Cari nama produk..." 
+          aria-label="Cari produk"
+        >
+        <select id="category-filter" class="input-control" aria-label="Filter kategori">
+          <option value="all">Semua Kategori</option>
+        </select>
+        <button id="refresh-btn" class="btn btn-outline" type="button">Muat Ulang</button>
+      </div>
+    </section>
+
+    <!-- Status Loading -->
+    <div id="loading-state" class="status-box" role="status" aria-live="polite">
+      <div class="spinner"></div>
+      <p>Memuat daftar produk dari server...</p>
+    </div>
+
+    <!-- Status Error -->
+    <div id="error-state" class="status-box error-box hidden" role="alert">
+      <p class="error-title">Gagal Memuat Data Produk</p>
+      <p id="error-message" class="error-desc">Terjadi kesalahan saat menghubungi server.</p>
+      <button id="retry-btn" class="btn btn-primary" type="button">Coba Lagi</button>
+    </div>
+
+    <!-- Info Jumlah Produk -->
+    <div id="result-meta" class="result-meta hidden">
+      Menampilkan <span id="product-count">0</span> produk
+    </div>
+
+    <!-- Daftar Produk -->
+    <section id="product-grid" class="product-grid" aria-label="Daftar Produk"></section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>PAW Week 6 | 20240140056 | Nur Rizqi Febriansyah Putra</p>
+    </div>
+  </footer>
+
+  <script src="js/index.js"></script>
+</body>
+</html>

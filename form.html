@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caption Generator</title>
+  <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand">Nur Rizqi FP - B - 056</a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Data Produk</a>
+        <a href="form.html" class="nav-link active">Caption Generator</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <section class="page-header">
+      <h1>Caption Generator</h1>
+      <p class="subtitle">Buat caption media sosial dan promosi produk dengan DOM &amp; Event Handling.</p>
+    </section>
+
+    <div class="workspace">
+      <!-- Panel Form Input -->
+      <section class="card form-card" aria-labelledby="form-heading">
+        <h2 id="form-heading" class="card-title">Detail Konten</h2>
+
+        <div id="form-feedback" class="feedback-banner hidden" role="alert"></div>
+
+        <form id="caption-form" novalidate>
+          <div class="form-group">
+            <label for="product-name">Nama Produk / Topik <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="product-name" 
+              name="productName" 
+              placeholder="Contoh: Kopi Arabika Gayo 250g" 
+              maxlength="80"
+              required
+            >
+            <div class="field-meta">
+              <small id="name-error" class="error-text"></small>
+              <small id="name-counter" class="char-counter">0 / 80</small>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="platform">Platform <span class="required">*</span></label>
+              <select id="platform" name="platform" required>
+                <option value="">-- Pilih Platform --</option>
+                <option value="Instagram">Instagram</option>
+                <option value="TikTok">TikTok</option>
+                <option value="Twitter / X">Twitter / X</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Marketplace">Marketplace</option>
+              </select>
+              <small id="platform-error" class="error-text"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="tone">Gaya Bahasa (Tone) <span class="required">*</span></label>
+              <select id="tone" name="tone" required>
+                <option value="santai">Santai &amp; Akrab</option>
+                <option value="profesional">Profesional &amp; Informatif</option>
+                <option value="promosi">Promosi / Flash Sale</option>
+                <option value="storytelling">Storytelling</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="key-benefit">Keunggulan Utama / Deskripsi Singkat <span class="required">*</span></label>
+            <textarea 
+              id="key-benefit" 
+              name="keyBenefit" 
+              rows="3" 
+              placeholder="Contoh: Biji kopi pilihan dari dataran tinggi Aceh, aroma floral khas, cocok untuk manual brew."
+              maxlength="250"
+              required
+            ></textarea>
+            <div class="field-meta">
+              <small id="benefit-error" class="error-text"></small>
+              <small id="benefit-counter" class="char-counter">0 / 250</small>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="promo-offer">Info Promo / Diskon (Opsional)</label>
+              <input 
+                type="text" 
+                id="promo-offer" 
+                name="promoOffer" 
+                placeholder="Contoh: Diskon 20% hari ini"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="cta-text">Call to Action (CTA)</label>
+              <input 
+                type="text" 
+                id="cta-text" 
+                name="ctaText" 
+                placeholder="Contoh: Klik link di bio sekarang!"
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="hashtags-input">Kata Kunci Hashtag (pisahkan dengan koma)</label>
+            <input 
+              type="text" 
+              id="hashtags-input" 
+              name="hashtags" 
+              placeholder="Contoh: kopigayo, kopiindonesia, ngopipagi"
+            >
+            <small id="hashtag-error" class="error-text"></small>
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="use-emoji" checked>
+              <span>Sertakan Emoji</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="use-hashtags" checked>
+              <span>Sertakan Hashtag Otomatis</span>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="generate-btn" class="btn btn-primary">Buat Caption</button>
+            <button type="reset" id="reset-btn" class="btn btn-outline">Reset</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Panel Hasil Output -->
+      <section class="card output-card" aria-labelledby="output-heading">
+        <div class="output-header">
+          <h2 id="output-heading" class="card-title">Hasil Caption</h2>
+          <span id="badge-meta" class="badge">Belum dibuat</span>
+        </div>
+
+        <div id="empty-output" class="empty-state">
+          <p>Isi form di samping lalu klik <strong>Buat Caption</strong> untuk melihat hasil generasi caption.</p>
+        </div>
+
+        <div id="result-container" class="result-container hidden">
+          <div class="caption-box">
+            <pre id="caption-output" class="caption-text"></pre>
+          </div>
+
+          <div class="output-stats">
+            <span>Karakter: <strong id="stat-chars">0</strong></span>
+            <span>Kata: <strong id="stat-words">0</strong></span>
+            <span>Hashtag: <strong id="stat-tags">0</strong></span>
+          </div>
+
+          <div class="output-actions">
+            <button type="button" id="copy-btn" class="btn btn-primary">Salin Caption</button>
+            <button type="button" id="regenerate-btn" class="btn btn-outline">Variasi Lain</button>
+          </div>
+
+          <p id="copy-feedback" class="copy-feedback hidden" role="status"></p>
+        </div>
+
+        <div class="history-section">
+          <div class="history-header">
+            <h3 class="history-title">Riwayat Caption Sesi Ini</h3>
+            <button type="button" id="clear-history-btn" class="btn-link hidden">Hapus Semua</button>
+          </div>
+          <ul id="history-list" class="history-list">
+            <li class="history-empty">Belum ada riwayat caption.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>PAW Week 6 | 20240140056 | Nur Rizqi Febriansyah Putra</p>
+    </div>
+  </footer>
+
+  <script src="js/form.js"></script>
+</body>
+</html>
