@@ -66,22 +66,23 @@ body {
 
 .nav-link {
   text-decoration: none;
-  color: var(--text-muted);
+  color: #ffffff;
   font-size: 0.9rem;
   font-weight: 500;
   padding: 0.4rem 0.75rem;
   border-radius: var(--radius);
+  background-color: #000000;
   transition: color 0.15s ease, background-color 0.15s ease;
 }
 
 .nav-link:hover {
-  color: var(--text);
-  background-color: #f4f4f5;
+  color: #ffffff;
+  background-color: #333333;
 }
 
 .nav-link.active {
-  color: var(--surface);
-  background-color: var(--primary);
+  color: #ffffff;
+  background-color: #000000;
 }
 
 /* Layout Utama */
